@@ -8,14 +8,18 @@ public class Plugin : BaseUnityPlugin
 {
     private void Awake()
     {
-        Logger.LogInfo("Custom Gravity Mod Loaded");
-
-        // Set a low gravity value at startup
-        Physics.gravity = new Vector3(0, -4.9f, 0);
+        // Ensure the gravity is set at the start
+        Physics.gravity = new Vector3(0, -4.9f, 0);  // Reduced gravity
+        Logger.LogInfo("Custom Gravity Mod Loaded: Gravity set to " + Physics.gravity);
     }
 
     private void Update()
     {
-        Logger.LogInfo($"Current Gravity: {Physics.gravity}");
+        // Continuously check and set the gravity to ensure it remains constant
+        if (Physics.gravity.y != -4.9f)
+        {
+            Physics.gravity = new Vector3(0, -4.9f, 0);
+            Logger.LogInfo($"Gravity was reset, now set to: {Physics.gravity}");
+        }
     }
 }
